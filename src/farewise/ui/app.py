@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import base64
+from datetime import datetime, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 import plotly.graph_objects as go
@@ -87,9 +89,11 @@ def _inject_styles() -> None:
         [data-testid="stMetric"] {{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 17px; box-shadow:0 5px 18px rgba(24,48,78,.04); }}
         [data-testid="stMetricLabel"] p {{ color:#718097; font-size:11px; text-transform:uppercase; letter-spacing:1px; }}
         [data-testid="stMetricValue"] {{ color:#17365a; font-family:'Segoe UI',Arial,sans-serif; }}
-        [data-testid="stDataFrame"] {{ border:1px solid var(--line); border-radius:12px; overflow:hidden; }}
+        [data-testid="stDataFrame"] {{ border:1px solid var(--line); border-radius:12px; overflow:hidden; background:#fff; }}
         [data-testid="stPlotlyChart"] {{ background:#fff; border:1px solid var(--line); border-radius:15px; padding:8px; }}
         div[data-testid="stSelectbox"] label, div[data-testid="stSlider"] label, div[data-testid="stNumberInput"] label {{ color:#52637a; font-weight:600; }}
+        div[data-testid="stDateInput"] label {{ color:#52637a; font-weight:600; }}
+        div[data-testid="stDateInput"] input {{ border-radius:10px; min-height:44px; }}
         [data-testid="stForm"] {{ border:0; padding:0; }}
         .footer {{ color:#94a0af; font-size:11px; border-top:1px solid #e2e8f0; padding-top:16px; margin-top:36px; }}
         @media(max-width:800px) {{ .hero {{ min-height:230px; padding:26px 23px; background-position:62% center; }} .block-container {{ padding-top:1rem; }} }}
@@ -119,9 +123,54 @@ def _metric_card(label: str, value: str, note: str) -> None:
 def _show_drivers(drivers: list[dict[str, object]] | None) -> None:
     if not drivers:
         return
-    st.markdown("#### What shaped this result")
-    st.caption("Observed historical patterns only; these are not causal effects or live market signals.")
-    st.dataframe(pd.DataFrame(drivers), hide_index=True, use_container_width=True)
+    readable_names = {
+        "days_left": "Booking window",
+        "source_city": "Origin",
+        "destination_city": "Destination",
+        "class": "Cabin class",
+        "airline": "Airline",
+        "stops": "Stops",
+        "duration": "Flight duration",
+    }
+    visible = []
+    for item in drivers:
+        row = dict(item)
+        feature = str(row.get("feature", "Fare signal"))
+        raw_shift = row.get("median_shift_inr")
+        if raw_shift is not None:
+            shift = float(raw_shift)
+            if abs(shift) < 1:
+                continue
+            visible.append(
+                (
+                    readable_names.get(feature, feature.replace("_", " ").title()),
+                    str(row.get("value", "")),
+                    f"{'+' if shift > 0 else '−'}₹{abs(shift):,.0f}",
+                    "Observed median shift in this nearby sample",
+                )
+            )
+        else:
+            impact = float(row.get("log_price_impact", 0))
+            if abs(impact) < 0.0001:
+                continue
+            label = feature.replace("prep__", "").replace("num__", "").replace("cat__", "")
+            visible.append(
+                (
+                    readable_names.get(label, label.replace("_", " ").title()),
+                    "Model signal",
+                    f"{'+' if impact > 0 else '−'}{abs(impact):.2f}",
+                    "Relative log-price contribution",
+                )
+            )
+    if not visible:
+        return
+    st.markdown("#### Historical fare signals")
+    st.caption("The strongest non-zero signals in the available sample. These are descriptive, not causal or live.")
+    for start in range(0, min(len(visible), 3), 3):
+        columns = st.columns(3)
+        for column, (label, value, impact, note) in zip(columns, visible[start : start + 3]):
+            with column:
+                _metric_card(label, impact, f"{value} · {note}")
 
 
 def _query_form(page: str) -> tuple[FareQuery | None, float | None, bool]:
@@ -137,14 +186,19 @@ def _query_form(page: str) -> tuple[FareQuery | None, float | None, bool]:
             destination = second.selectbox("To", destinations, key=f"{page}-destination")
             third, fourth = st.columns(2)
             fare_class = third.selectbox("Cabin class", classes, key=f"{page}-class")
+            today = datetime.now(ZoneInfo("Asia/Kolkata")).date()
             max_days = max(1, min(365, int(data.days_left.max())))
-            days_left = fourth.slider(
-                "Days until departure",
-                min_value=1,
-                max_value=max_days,
-                value=min(14, max_days),
-                key=f"{page}-days",
+            departure_date = fourth.date_input(
+                "Departure date",
+                value=today + timedelta(days=min(14, max_days)),
+                min_value=today + timedelta(days=1),
+                max_value=today + timedelta(days=max_days),
+                format="MMM D, YYYY",
+                key=f"{page}-departure-date",
+                help="Choose your travel date. FareWise uses it to calculate the booking horizon.",
             )
+            days_left = (departure_date - today).days
+            fourth.caption(f"{days_left} day{'s' if days_left != 1 else ''} until departure")
             quote = None
             if page in {"Book or wait", "Quote check"}:
                 quote = st.number_input(

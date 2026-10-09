@@ -9,3 +9,4 @@
 - The v1 advisor follows configured saving/risk thresholds. The v2 policy uses backward induction with training-only transition ratios. The simulation's hindsight oracle is for an upper bound only.
 - Synthetic evaluation and policy results are not claims about market performance. The 2022 Kaggle snapshot lacks journey dates and repeated days-left observations may refer to different physical departures.
 - Optional FastAPI remains deferred; the validated Python services and Streamlit UI cover the intended local demo.
+- The trip input uses a date picker and converts the selected travel date to a days-left feature; explanation rows are presented as readable fare-signal cards, and the bundled hero photo plus explicit light theme keeps the UI self-contained across local, Docker and Community Cloud runs.
