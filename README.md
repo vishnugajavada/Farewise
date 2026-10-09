@@ -2,6 +2,10 @@
 
 FareWise estimates domestic flight fare ranges and gives explainable, historically grounded book-or-wait guidance. It supports a manually downloaded CSV or a deterministic synthetic demo. There are no APIs, keys, or runtime network calls. Synthetic results are demonstrations, not evidence of real fare performance.
 
+## Repository
+
+[GitHub source repository](https://github.com/vishnugajavada/Farewise)
+
 ## Architecture
 
 ```mermaid
@@ -67,7 +71,6 @@ Build and run with `docker compose up --build`, then open `http://localhost:8501
 
 ## Streamlit Community Cloud
 
-1. Push this repository to GitHub.
-2. Sign in to Streamlit Community Cloud and choose **Create app**.
-3. Select the repository and branch; set the main file to `src/farewise/ui/app.py` and Python to 3.11.
-4. Deploy. Community Cloud installs the project from root `requirements.txt`; the app starts on synthetic data without the private raw CSV.
+The repository is published at [github.com/vishnugajavada/Farewise](https://github.com/vishnugajavada/Farewise). The live app URL will be added here after its first deployment.
+
+To deploy, sign in to [Streamlit Community Cloud](https://share.streamlit.io/), choose **Create app**, select repository `vishnugajavada/Farewise` and branch `main`, set the entry point to `src/farewise/ui/app.py`, and choose Python 3.11. Community Cloud installs the project from root `requirements.txt`; the app starts on synthetic data without the private raw CSV.
