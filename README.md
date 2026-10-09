@@ -1,6 +1,18 @@
-# FareWise
+<div align="center">
 
-FareWise estimates domestic flight fare ranges and gives explainable, historically grounded book-or-wait guidance. It supports a manually downloaded CSV or a deterministic synthetic demo. There are no APIs, keys, or runtime network calls. Synthetic results are demonstrations, not evidence of real fare performance.
+# ✈️ FareWise
+
+### AI-Powered Flight Fare Intelligence for India
+
+Estimate fares, explore historical patterns, and get explainable book-or-wait guidance.
+
+[🌐 **Open the live app**](https://vishnugajavada-farewise-srcfarewiseuiapp-fh8waa.streamlit.app/) · [📦 **GitHub repository**](https://github.com/vishnugajavada/Farewise)
+
+FareWise uses a deterministic synthetic demo or a locally provided CSV. It makes no live fare API calls; synthetic results are demonstrations, not evidence of real fare performance.
+
+</div>
+
+---
 
 ## Repository
 
@@ -71,6 +83,4 @@ Build and run with `docker compose up --build`, then open `http://localhost:8501
 
 ## Streamlit Community Cloud
 
-The repository is published at [github.com/vishnugajavada/Farewise](https://github.com/vishnugajavada/Farewise). The live app URL will be added here after its first deployment.
-
-To deploy, sign in to [Streamlit Community Cloud](https://share.streamlit.io/), choose **Create app**, select repository `vishnugajavada/Farewise` and branch `main`, set the entry point to `src/farewise/ui/app.py`, and choose Python 3.11. Community Cloud installs the project from root `requirements.txt`; the app starts on synthetic data without the private raw CSV.
+The app is deployed at [vishnugajavada-farewise-srcfarewiseuiapp-fh8waa.streamlit.app](https://vishnugajavada-farewise-srcfarewiseuiapp-fh8waa.streamlit.app/). The source repository is [github.com/vishnugajavada/Farewise](https://github.com/vishnugajavada/Farewise).
