@@ -55,6 +55,9 @@ def _inject_styles() -> None:
         [data-testid="stSidebar"] [data-testid="stRadio"] label:hover {{ background:rgba(255,255,255,.08); }}
         [data-testid="stSidebar"] [data-testid="stRadio"] [aria-checked="true"] + div {{ color:#fff; }}
         [data-testid="stSidebar"] hr {{ border-color:rgba(255,255,255,.14); }}
+        [data-testid="stSidebar"] div.stButton > button {{ width:100%; text-align:left; justify-content:flex-start; border-radius:9px; min-height:42px; background:transparent; border:1px solid transparent; color:#dce7f6 !important; box-shadow:none; }}
+        [data-testid="stSidebar"] [data-testid="stBaseButton-primary"] {{ background:#2b67b3 !important; border-color:rgba(255,255,255,.12) !important; color:#fff !important; }}
+        [data-testid="stSidebar"] div.stButton > button:hover {{ background:rgba(255,255,255,.1) !important; border-color:rgba(255,255,255,.12) !important; color:#fff !important; }}
         .block-container {{ max-width:1380px; padding-top:1.5rem; padding-bottom:3rem; }}
         h1,h2,h3 {{ color:var(--ink); font-family:'Segoe UI',Arial,sans-serif; letter-spacing:-.035em; }}
         h2 {{ font-size:1.42rem !important; }}
@@ -83,7 +86,9 @@ def _inject_styles() -> None:
         .result-title {{ font-family:'Segoe UI',Arial,sans-serif; font-size:20px; font-weight:800; color:#183657; }}
         .result-copy {{ font-size:12px; color:#62738a; margin-top:4px; }}
         div.stButton > button {{ border-radius:10px; min-height:43px; font-weight:700; border:1px solid #d7e1ed; }}
-        div.stButton > button[kind="primary"], div.stFormSubmitButton > button[kind="primary"] {{ background:linear-gradient(135deg,#245da9,#17457f); border:0; color:#fff; box-shadow:0 7px 17px rgba(33,88,165,.18); }}
+        div.stButton > button[kind="primary"], div.stFormSubmitButton > button[kind="primary"] {{ background:linear-gradient(135deg,#245da9,#17457f); border:0; color:#fff !important; box-shadow:0 7px 17px rgba(33,88,165,.18); }}
+        [data-testid="stFormSubmitButton"] button {{ background:linear-gradient(135deg,#245da9,#17457f) !important; border:0 !important; color:#fff !important; box-shadow:0 7px 17px rgba(33,88,165,.18); }}
+        [data-testid="stFormSubmitButton"] button * {{ color:#fff !important; }}
         div.stButton > button:hover {{ border-color:#8ba9cf; color:#17457f; }}
         div.stFormSubmitButton > button {{ border-radius:10px; min-height:46px; font-weight:700; }}
         [data-testid="stMetric"] {{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 17px; box-shadow:0 5px 18px rgba(24,48,78,.04); }}
@@ -421,7 +426,16 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
     st.markdown('<div class="sidebar-label">Workspace</div>', unsafe_allow_html=True)
-    page = st.radio("Navigate", PAGE_NAMES, label_visibility="collapsed", key="farewise-page")
+    page = st.session_state.get("farewise-page", "Overview")
+    for nav_page in PAGE_NAMES:
+        if st.button(
+            nav_page,
+            key=f"nav-{nav_page}",
+            type="primary" if nav_page == page else "secondary",
+            use_container_width=True,
+        ):
+            st.session_state["farewise-next-page"] = nav_page
+            st.rerun()
     st.divider()
     st.markdown('<div class="sidebar-label">Data status</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="source-pill"><span class="source-dot"></span>{source_label.title()}</div>', unsafe_allow_html=True)
