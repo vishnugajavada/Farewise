@@ -84,3 +84,20 @@ Build and run with `docker compose up --build`, then open `http://localhost:8501
 ## Streamlit Community Cloud
 
 The app is deployed at [vishnugajavada-farewise-srcfarewiseuiapp-fh8waa.streamlit.app](https://vishnugajavada-farewise-srcfarewiseuiapp-fh8waa.streamlit.app/). The source repository is [github.com/vishnugajavada/Farewise](https://github.com/vishnugajavada/Farewise).
+
+## 👤 Author
+
+**Gajavada Vishnu**
+M.Tech Integrated Software Engineering — VIT Vellore (2021–2026)
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Vishnu%20Gajavada-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/vishnu-gajavada-380631279/)
+[![GitHub](https://img.shields.io/badge/GitHub-vishnugajavada-181717?style=flat&logo=github)](https://github.com/vishnugajavada)
+
+---
+
+
+
+---
+
+> ⭐ If you found this project helpful, consider giving it a star!
+
