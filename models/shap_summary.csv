@@ -1,0 +1,88 @@
+feature,mean_abs_shap_log_price
+cat__class_Business,0.2118545108191719
+cat__class_Economy,0.1856803543236701
+num__days_left,0.18148581249095927
+num__duration,0.042898990139376245
+cat__airline_IndiGo,0.02798813897734671
+cat__airline_tier_low_cost,0.026106802604283094
+cat__airline_tier_full_service,0.02322572969961538
+cat__days_bucket_0-2,0.016245720885425297
+cat__arrival_time_Early_Morning,0.010784147993746353
+cat__airline_SpiceJet,0.008364822569197006
+cat__source_city_Bangalore,0.007370273420161416
+cat__stops_one,0.007191773483172126
+cat__destination_city_Hyderabad,0.006974365905047377
+cat__departure_bucket_Afternoon,0.006933360806710075
+cat__destination_city_Delhi,0.0067849200633994435
+cat__departure_time_Afternoon,0.006373935665863204
+cat__arrival_time_Evening,0.006304259173405649
+remainder__stops_ordinal,0.0059966890134947725
+cat__departure_time_Night,0.0058842460397938
+num__red_eye,0.005317755143670344
+cat__route_Bangalore → Chennai,0.005218806185989994
+cat__airline_Vistara,0.005150514215431422
+cat__duration_bin_medium,0.005021172624881337
+cat__source_city_Chennai,0.004866084773187363
+cat__departure_bucket_Night,0.004586060549159633
+cat__stops_two_or_more,0.004556017487355046
+cat__source_city_Delhi,0.004243553220529392
+cat__source_city_Mumbai,0.0041700676307560355
+cat__source_city_Kolkata,0.0038563080021882055
+cat__departure_bucket_Early_Morning,0.003793298342793657
+cat__source_city_Hyderabad,0.0037175923546371083
+cat__arrival_time_Morning,0.0036860023856088624
+cat__departure_time_Early_Morning,0.003638629383444171
+cat__airline_GO_FIRST,0.00360244979066814
+cat__stops_zero,0.0035052140232685676
+cat__route_Chennai → Delhi,0.0034278766670314993
+cat__airline_AirAsia,0.003276080450504362
+cat__days_bucket_8-14,0.003194610980998553
+cat__destination_city_Bangalore,0.003167609163071537
+cat__route_Delhi → Bangalore,0.003101381214061101
+cat__duration_bin_short,0.0030728901025946142
+cat__arrival_time_Afternoon,0.00293868923590459
+cat__arrival_time_Late_Night,0.002878427056947503
+cat__route_Bangalore → Hyderabad,0.002839670499743865
+cat__arrival_time_Night,0.0026919795054228357
+cat__duration_bin_long,0.0026737171199575356
+cat__days_bucket_3-7,0.002666095284638346
+cat__route_Mumbai → Hyderabad,0.0026484075895123966
+cat__route_Chennai → Bangalore,0.002439341681126164
+cat__route_Delhi → Chennai,0.002282096513547292
+cat__departure_time_Morning,0.0021789254100402287
+cat__destination_city_Chennai,0.0021179092952539145
+cat__route_Bangalore → Delhi,0.0020871231432059677
+cat__departure_bucket_Morning,0.0019092028166498255
+cat__departure_bucket_Evening,0.001888668615111478
+cat__destination_city_Kolkata,0.001887612181639409
+cat__departure_time_Evening,0.0018852823887529097
+cat__route_Bangalore → Kolkata,0.0018424400056361301
+cat__route_Mumbai → Bangalore,0.0018292764189126614
+cat__route_Kolkata → Hyderabad,0.001825138900578096
+cat__route_Mumbai → Chennai,0.0017789948126661504
+cat__airline_Air_India,0.0016936420701604026
+cat__route_Kolkata → Chennai,0.0016546959060407638
+cat__route_Bangalore → Mumbai,0.001535283322289511
+cat__route_Chennai → Mumbai,0.0014893200412737064
+cat__route_Hyderabad → Chennai,0.0014154662992095918
+cat__destination_city_Mumbai,0.0013977001109810635
+cat__route_Kolkata → Bangalore,0.0013965372990741162
+cat__departure_time_Late_Night,0.0013130132154642632
+cat__route_Hyderabad → Bangalore,0.0012045329854616078
+cat__departure_bucket_Late_Night,0.0011898627181526258
+cat__route_Delhi → Mumbai,0.0010729038186314218
+cat__days_bucket_31+,0.0009308696218743675
+cat__route_Mumbai → Kolkata,0.0007812072880681249
+cat__duration_bin_very_long,0.0007476417174570227
+cat__route_Kolkata → Delhi,0.0007395289113111942
+cat__route_Hyderabad → Kolkata,0.0007218620364619202
+cat__route_Delhi → Kolkata,0.0006626757382125433
+cat__route_Hyderabad → Mumbai,0.0006600049674685833
+cat__route_Mumbai → Delhi,0.0005702460087677168
+cat__days_bucket_22-30,0.0005674420269861095
+cat__route_Hyderabad → Delhi,0.0005247270700455013
+cat__route_Kolkata → Mumbai,0.0005107731303044833
+cat__route_Delhi → Hyderabad,0.00048418900898532566
+cat__route_Chennai → Hyderabad,0.00034108676210090473
+cat__route_Chennai → Kolkata,0.00027761820825696103
+cat__days_bucket_15-21,0.00020292129570834115

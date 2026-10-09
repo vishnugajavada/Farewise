@@ -1,0 +1,43 @@
+{
+  "data_rows": 6410,
+  "flight_groups": 500,
+  "data_source": "synthetic unless raw CSV configured",
+  "champion": "Ridge",
+  "sklearn_version": "1.9.1",
+  "shap_available": true,
+  "metrics_csv": "models\\evaluation_summary.csv",
+  "interval_method": "split conformal, absolute fare residuals, 80% nominal; calibrated on groups held out from fit",
+  "conformal_radius_inr": 3669.7770404211906,
+  "group_cv_metrics": {
+    "LightGBM": {
+      "mae_inr": 2885.4458361667516,
+      "rmse_inr": 4453.48374876655,
+      "r2_price": 0.6815995294529537
+    },
+    "RandomForest": {
+      "mae_inr": 2865.743950486349,
+      "rmse_inr": 4423.951319099949,
+      "r2_price": 0.685266658269429
+    },
+    "Ridge": {
+      "mae_inr": 2793.535908758456,
+      "rmse_inr": 4339.496332224915,
+      "r2_price": 0.6953795756400487
+    },
+    "global_class": {
+      "mae_inr": 3237.4466006871558,
+      "rmse_inr": 5205.412421476772,
+      "r2_price": 0.562981217229064
+    },
+    "route_class": {
+      "mae_inr": 3627.4142721108824,
+      "rmse_inr": 5912.616169305986,
+      "r2_price": 0.43482582771303974
+    },
+    "route_class_days": {
+      "mae_inr": 3106.943209418297,
+      "rmse_inr": 5088.016818619749,
+      "r2_price": 0.5825460698893362
+    }
+  }
+}

@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.egg-info/
+*.py[cod]
+.pytest_cache/
+pytest-cache-files-*/
+.ruff_cache/
+.coverage
+.env
+data/raw/*
+!data/raw/.gitkeep
+data/interim/*
+data/processed/*.parquet
+models/*.joblib
+.tmp/
+.worktmp/
+models/test_smoke/

@@ -1,0 +1,7 @@
+tiers:
+  IndiGo: low_cost
+  AirAsia: low_cost
+  SpiceJet: low_cost
+  Vistara: full_service
+  Air_India: full_service
+  GO_FIRST: low_cost

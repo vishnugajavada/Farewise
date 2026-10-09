@@ -1,0 +1,5 @@
+source: auto
+synthetic_flights: 500
+seed: 42
+raw_dir: data/raw
+processed_path: data/processed/fares.parquet

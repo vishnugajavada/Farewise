@@ -1,0 +1,8 @@
+flexibility_days: 7
+minimum_saving_inr: 250
+max_risk: 0.40
+danger_zone_days_left: 2
+deal_percentiles:
+  great: 10
+  fair: 60
+  above_expected: 90
