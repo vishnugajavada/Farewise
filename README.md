@@ -63,7 +63,7 @@ Ridge is the selected champion by unseen-flight mean absolute error; LightGBM pe
 
 ## Data and limitations
 
-To use real data, download the Kaggle **Flight Price Prediction** (EaseMyTrip) CSV manually and place it in `data/raw/`. Review the source's current licence/attribution conditions before using or redistributing it. The widely circulated snapshot covers Feb–Mar 2022 and has no journey date, so repeated days-left rows may describe different physical departures. Synthetic panels cannot establish real-world predictive quality. The advice is descriptive decision support, never a guarantee or travel recommendation.
+The route picker includes 100+ Indian airport cities from the AAI airport directory. This is a destination catalog, not fare coverage: the current synthetic sample contains observations for six cities. Route estimates without a matching sample are labeled as broad class-wide fallbacks; route advice and quote checks report when route history is unavailable. A real CSV can be manually placed in `data/raw/`; review the source's current licence and attribution terms before use or redistribution. The commonly used Kaggle snapshot covers Feb–Mar 2022 and has no journey date. Synthetic panels cannot establish real-world predictive quality. Advice is descriptive decision support, never a guarantee or travel recommendation.
 
 ## Docker
 

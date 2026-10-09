@@ -25,3 +25,7 @@ Flagged price outliers (retained): 3
 Distinct horizons per flight-route-class panel: min 10, median 13, max 14
 
 Rows at different horizons may represent different physical departures. Synthetic values are illustrative, not observed market data.
+
+## City directory
+
+The route form includes a static directory of Indian airport cities maintained in `configs/cities.yaml`, compiled from Airports Authority of India airport and aerodrome lists ([operational airport FAQ](https://www.aai.aero/en/faqs), [licensed aerodromes](https://www.aai.aero/en/content/aerodrome-licensing)). The directory is a destination picker, not a guarantee of scheduled service or route-level fare history. The current synthetic sample still contains fares for only six cities; unsupported routes are clearly reported or use a labeled class-wide estimate fallback.

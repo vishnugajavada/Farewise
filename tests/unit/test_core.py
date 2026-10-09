@@ -10,6 +10,7 @@ from farewise.data.clean import clean_fares
 from farewise.data.synthetic import generate_fares
 from farewise.evaluation.metrics import pinball_loss, smape
 from farewise.features.build import build_features
+from farewise.service.city_service import canonical_city, get_indian_cities
 from farewise.service.predict_service import FareQuery
 
 
@@ -54,6 +55,13 @@ def test_metrics():
 def test_query_validates_route():
     with pytest.raises(ValueError):FareQuery(source="Delhi",destination="Delhi",days_left=3)
     assert FareQuery(source="Delhi",destination="Mumbai",days_left=7).days_left==7
+
+def test_indian_airport_city_catalog_and_aliases():
+    cities = get_indian_cities()
+    assert len(cities) >= 100
+    assert {"Delhi", "Mumbai", "Chennai", "Guwahati", "Goa"}.issubset(cities)
+    assert canonical_city("Bengaluru") == "Bangalore"
+    assert canonical_city("Prayagraj") == "Allahabad"
 
 
 def test_invalid_stop_mapping_and_airline_consistency():

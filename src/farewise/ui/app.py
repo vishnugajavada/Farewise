@@ -10,6 +10,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from farewise.service.advise_service import advise_route
+from farewise.service.city_service import canonical_city, get_indian_cities
 from farewise.service.data_service import fare_curves, get_data, route_summary
 from farewise.service.deal_service import check_quote
 from farewise.service.predict_service import FareQuery, predict_fare
@@ -178,12 +179,17 @@ def _show_drivers(drivers: list[dict[str, object]] | None) -> None:
                 _metric_card(label, impact, f"{value} · {note}")
 
 
-def _query_form(page: str) -> tuple[FareQuery | None, float | None, bool]:
-    cities = sorted(data.source_city.unique())
-    classes = sorted(data["class"].unique())
+def _query_form(page: str) -> tuple[FareQuery, float | None, bool]:
+    cities = get_indian_cities()
+    classes = [value for value in ["Economy", "Business"] if value in set(data["class"])]
+    observed_cities = set(data.source_city) | set(data.destination_city)
     with st.container(border=True):
         st.markdown('<div class="section-eyebrow">Trip details</div>', unsafe_allow_html=True)
         st.subheader("Set up your search")
+        st.caption(
+            f"{len(cities)} Indian airport cities are searchable. Current data has fare records for "
+            f"{len(observed_cities)} cities; other city pairs may not have route-specific history."
+        )
         with st.form(f"farewise-{page}"):
             first, second = st.columns(2)
             source = first.selectbox("From", cities, key=f"{page}-source")
@@ -214,7 +220,12 @@ def _query_form(page: str) -> tuple[FareQuery | None, float | None, bool]:
                     key=f"{page}-quote",
                 )
             submitted = st.form_submit_button("Analyze itinerary  →", type="primary", use_container_width=True)
-    query = FareQuery(source=source, destination=destination, days_left=days_left, fare_class=fare_class)
+    query = FareQuery(
+        source=canonical_city(source, observed_cities),
+        destination=canonical_city(destination, observed_cities),
+        days_left=days_left,
+        fare_class=fare_class,
+    )
     return query, quote, submitted
 
 
@@ -232,6 +243,8 @@ def _show_fare_estimate(query: FareQuery, page: str) -> None:
     if not result.get("available"):
         st.warning(result.get("message", "There is not enough data for this estimate."))
         return
+    if result.get("fallback"):
+        st.warning("This city pair has no matching fare records. The estimate uses class-wide history from the available dataset.")
     st.markdown("### Estimated fare range")
     low, typical, high = st.columns(3)
     low.metric("Lower range · P10", f"₹{result['p10']:,.0f}")
@@ -350,10 +363,18 @@ def _render_route_explorer() -> None:
     st.markdown('<div class="section-eyebrow">Booking horizon</div>', unsafe_allow_html=True)
     st.subheader("How fares vary with days left")
     a, b, c = st.columns(3)
-    source = a.selectbox("Origin", sorted(data.source_city.unique()), key="curve-source")
-    destination = b.selectbox("Destination", [city for city in sorted(data.destination_city.unique()) if city != source], key="curve-destination")
+    city_catalog = get_indian_cities()
+    observed_cities = set(data.source_city) | set(data.destination_city)
+    st.caption(f"The directory lists {len(city_catalog)} Indian airport cities; fare curves appear only where the current dataset has observations.")
+    source = a.selectbox("Origin", city_catalog, key="curve-source")
+    destination = b.selectbox("Destination", [city for city in city_catalog if city != source], key="curve-destination")
     fare_class = c.selectbox("Cabin", sorted(data["class"].unique()), key="curve-class")
-    curve = fare_curves(data, source, destination, fare_class)
+    curve = fare_curves(
+        data,
+        canonical_city(source, observed_cities),
+        canonical_city(destination, observed_cities),
+        fare_class,
+    )
     if curve.empty:
         st.info("No observations are available for this combination.")
         return

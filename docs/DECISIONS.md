@@ -11,3 +11,4 @@
 - Optional FastAPI remains deferred; the validated Python services and Streamlit UI cover the intended local demo.
 - The trip input uses a date picker and converts the selected travel date to a days-left feature; explanation rows are presented as readable fare-signal cards, and the bundled hero photo plus explicit light theme keeps the UI self-contained across local, Docker and Community Cloud runs.
 - Sidebar navigation uses selected-state buttons rather than radio controls; the form submit button forces high-contrast white text for legibility.
+- The city selector uses a static AAI-derived airport-city directory with spelling aliases. It remains separate from fare observations; unsupported city pairs must show route-data limitations or the predictor's explicit broad-history fallback rather than imply route-specific evidence.
