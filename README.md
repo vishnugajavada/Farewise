@@ -69,5 +69,5 @@ Build and run with `docker compose up --build`, then open `http://localhost:8501
 
 1. Push this repository to GitHub.
 2. Sign in to Streamlit Community Cloud and choose **Create app**.
-3. Select the repository and branch; set the main file to `src/farewise/ui/app.py`.
-4. Deploy. The app starts on synthetic data without the private raw CSV.
+3. Select the repository and branch; set the main file to `src/farewise/ui/app.py` and Python to 3.11.
+4. Deploy. Community Cloud installs the project from root `requirements.txt`; the app starts on synthetic data without the private raw CSV.
