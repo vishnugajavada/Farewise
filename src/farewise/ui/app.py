@@ -193,7 +193,7 @@ def _query_form(page: str) -> tuple[FareQuery | None, float | None, bool]:
                 value=today + timedelta(days=min(14, max_days)),
                 min_value=today + timedelta(days=1),
                 max_value=today + timedelta(days=max_days),
-                format="MMM D, YYYY",
+                format="DD/MM/YYYY",
                 key=f"{page}-departure-date",
                 help="Choose your travel date. FareWise uses it to calculate the booking horizon.",
             )
